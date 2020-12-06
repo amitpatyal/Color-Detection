@@ -29,7 +29,7 @@ def draw_function(event, x,y, flags, param):
         clicked = True
         xPosition = x
         yPosition = y
-        blueValue, greenValue, redValue = image[y,x]
+        blueValue, greenValue, redValue = image[yPosition, xPosition]
         blueValue = int(blueValue)
         greenValue = int(greenValue)
         redValue = int(redValue)
@@ -37,13 +37,14 @@ def draw_function(event, x,y, flags, param):
 if __name__ == '__main__':
     cv2.namedWindow('Color Name')
     cv2.setMouseCallback('Color Name', draw_function)
-
-    while (1):
-        if (clicked):
-            cv2.rectangle(image, (20, 20), (750, 60), (blueValue, greenValue, redValue), -1)
-            colorName = 'Color Name :-' + getColorName(redValue, greenValue, blueValue)
+    
+    while (1):        
+        if (clicked):            
+            cv2.rectangle(image, (20, 20), (950, 60), (blueValue, greenValue, redValue), -1)
+            colorName = 'Selected color name is:-' + getColorName(redValue, greenValue, blueValue)
             cv2.putText(image, colorName, (50, 50), 2, 0.75, (255, 255, 255), 1, cv2.FONT_ITALIC)
-            if (redValue + greenValue + blueValue >= 600):
+            minimumValue = abs(redValue + greenValue + blueValue)
+            if (minimumValue >= 600):
                 cv2.putText(image, colorName, (50, 50), 2, 0.75, (0, 0, 0), 1, cv2.FONT_ITALIC)
             clicked = False
         cv2.imshow("Color Name", image)
